@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Media;
-using System.Runtime.Remoting.Messaging;
-using System.Windows.Forms;
 using Rage;
-using Rage.Euphoria;
 using Rage.Native;
 
 [assembly: Rage.Attributes.Plugin("Spartan Kick", Description = "THIS IS SPARTAAAAA", Author = "Astro")]
@@ -15,18 +11,16 @@ namespace SpartanKick
     internal static class EntryPoint
     {
         internal static Ped MainPlayer => Game.LocalPlayer.Character;
-
-        internal static Ped Suspect;
         internal static SoundPlayer SoundPlayer = new SoundPlayer(@"plugins\SpartanKick\STOMP_KICK_5.wav");
+        internal static Ped Suspect;
         
         internal static void Main()
         {
-            SoundPlayer.Load();
             while (true)
             {
                 GameFiber.Yield();
 
-                if (Game.IsKeyDown(SpartanKick.Settings.Kickbutton))
+                if (Game.IsKeyDown(Settings.Kickbutton))
                 {
                     Game.LogTrivial("Button pressed");
                     if (GetNearestPedPlayerIsFacing(out Suspect))
@@ -41,28 +35,32 @@ namespace SpartanKick
                         {
                             NativeFunction.Natives.SET_PED_TO_RAGDOLL(Suspect, 5000, 6000, 0, false, true);
 
-                            EuphoriaMessageShot stiffness = new EuphoriaMessageShot();
-
-                            /*if (MainPlayer.IsInMeleeCombat)
+                            if (MainPlayer.IsInMeleeCombat)
                             {
                                 MainPlayer.Tasks.Clear();
-                            }*/
-                            
+                            }
+                            GameFiber.StartNew(SoundPlayer.PlaySound2D);
                             MainPlayer.Tasks.PlayAnimation(new AnimationDictionary("melee@large_wpn@streamed_core_fps"),
                                 "kick_far_a", 2500, 5f, 5f, 0.25f, AnimationFlags.None).WaitForCompletion();
 
                             if (MainPlayer.DistanceTo(Suspect) > 3f)
                             {
-                                SoundPlayer.PlaySync();
                                 NativeFunction.Natives.APPLY_FORCE_TO_ENTITY(Suspect, 3,
-                                    Suspect.Position.X - MainPlayer.Position.X,
-                                    Suspect.Position.Y - MainPlayer.Position.Y,
+                                    (Suspect.Position.X - MainPlayer.Position.X) + 2f,
+                                    (Suspect.Position.Y - MainPlayer.Position.Y) + 2f,
                                     Suspect.Position.Z - MainPlayer.Position.Z, 0f, 0f, 0f, 0, false, true, true, false,
                                     true);
                                 
-                                stiffness.FallingReaction = 1;
-                                stiffness.KMult4Legs = 0.9f;
-                                stiffness.MinLegsLooseness = 0.1f;   
+                                
+                                switch (Suspect.Health <= 10)
+                                {
+                                    case true:
+                                        Suspect.Kill();
+                                        break;
+                                    default:
+                                        Suspect.Health -= 10;
+                                        break;
+                                }
                             }
 
                         }

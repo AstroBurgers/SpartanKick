@@ -1,0 +1,9 @@
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\bin\Debug\SpartanKick.dll
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\bin\Debug\SpartanKick.pdb
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\bin\Debug\RagePluginHook.dll
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\obj\Debug\SpartanKick.csproj.AssemblyReference.cache
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\obj\Debug\SpartanKick.csproj.CoreCompileInputs.cache
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\obj\Debug\SpartanKick.csproj.CopyComplete
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\obj\Debug\SpartanKick.dll
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\obj\Debug\SpartanKick.pdb
+C:\Users\steve\Desktop\Desktop Files\Coding\Projects\SpartanKick\SpartanKick\bin\Debug\irrKlang.NET4.dll
